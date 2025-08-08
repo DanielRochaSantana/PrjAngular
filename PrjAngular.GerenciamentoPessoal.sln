@@ -5,6 +5,24 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "PrjAngular.GerenciamentoPessoal", "PrjAngular.GerenciamentoPessoal\PrjAngular.GerenciamentoPessoal.esproj", "{BB72F29C-0518-4D7B-A7B3-1B385897164B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portal", "Portal", "{44B329BC-B101-4D06-A646-577E003B2D6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{53263E03-399B-4557-B08F-0C06124D7E0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrjAngular.WebAPI", "PrjAngular.WebAPI\PrjAngular.WebAPI.csproj", "{956A3152-C66B-4600-A4A5-2978F0F1F076}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{1C5E6392-C993-4CD5-A5C3-5E86D04F16C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrjAngular.Application", "PrjAngular.Application\PrjAngular.Application.csproj", "{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{FC0FF4EC-864E-4546-8024-2A7D8AE87D4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrjAngular.Domain", "PrjAngular.Domain\PrjAngular.Domain.csproj", "{83DBA3E8-F823-4346-89C5-4F0E4239D656}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F272AE6E-089E-4CB5-9995-F3AC3F7369AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrjAngular.Infrastructure", "PrjAngular.Infrastructure\PrjAngular.Infrastructure.csproj", "{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +35,32 @@ Global
 		{BB72F29C-0518-4D7B-A7B3-1B385897164B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB72F29C-0518-4D7B-A7B3-1B385897164B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB72F29C-0518-4D7B-A7B3-1B385897164B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{956A3152-C66B-4600-A4A5-2978F0F1F076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{956A3152-C66B-4600-A4A5-2978F0F1F076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{956A3152-C66B-4600-A4A5-2978F0F1F076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{956A3152-C66B-4600-A4A5-2978F0F1F076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83DBA3E8-F823-4346-89C5-4F0E4239D656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DBA3E8-F823-4346-89C5-4F0E4239D656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DBA3E8-F823-4346-89C5-4F0E4239D656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DBA3E8-F823-4346-89C5-4F0E4239D656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB72F29C-0518-4D7B-A7B3-1B385897164B} = {44B329BC-B101-4D06-A646-577E003B2D6D}
+		{956A3152-C66B-4600-A4A5-2978F0F1F076} = {53263E03-399B-4557-B08F-0C06124D7E0B}
+		{CD4AD2EE-86D7-4A7B-9A68-B93ED94D410C} = {1C5E6392-C993-4CD5-A5C3-5E86D04F16C6}
+		{83DBA3E8-F823-4346-89C5-4F0E4239D656} = {FC0FF4EC-864E-4546-8024-2A7D8AE87D4B}
+		{E3CF8304-D6F7-4EF0-9EF2-A0D884A8B8DC} = {F272AE6E-089E-4CB5-9995-F3AC3F7369AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD50E3A3-4338-4405-A201-D0E8154241B3}
