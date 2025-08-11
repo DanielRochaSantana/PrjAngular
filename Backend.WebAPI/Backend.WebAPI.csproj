@@ -10,9 +10,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PrjAngular.Application\PrjAngular.Application.csproj" />
-    <ProjectReference Include="..\PrjAngular.Domain\PrjAngular.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

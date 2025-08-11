@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace PrjAngular.WebAPI.Controllers
+namespace Backend.WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
