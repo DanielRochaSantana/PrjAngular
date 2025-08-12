@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cliente } from '../interfaces/Cliente.interface';
+import { Usuario } from '../interfaces/Usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class ClienteService {
+export class UsuarioService {
 
   private _http: HttpClient;
 
@@ -17,23 +17,23 @@ export class ClienteService {
 
     this._http = http;
 
-    this._UrlBase = "https://192.168.15.7:8082/api/Administracao/";
+    this._UrlBase = "http://localhost:5133/api/Usuario/";
 
   }
 
-  getAll(): Observable<Cliente[]> {
+  getAll(): Observable<Usuario[]> {
 
     debugger
 
-    return this._http.get<Cliente[]>(`${this._UrlBase}ListarClientes`);
+    return this._http.get<Usuario[]>(`${this._UrlBase}ListarUsuarios`);
 
   }
 
-  get(Id: any): Observable<Cliente> {
+  get(Id: any): Observable<Usuario> {
 
     debugger
 
-    return this._http.get<Cliente>(`${this._UrlBase}ObterCliente?Id=${Id}`);
+    return this._http.get<Usuario>(`${this._UrlBase}ObterUsuario?Id=${Id}`);
 
   }
 
@@ -41,7 +41,7 @@ export class ClienteService {
 
     debugger
 
-    return this._http.post(`${this._UrlBase}AdicionarCliente`, data);
+    return this._http.post(`${this._UrlBase}AdicionarUsuario`, data);
 
   }
 
@@ -49,7 +49,7 @@ export class ClienteService {
 
     debugger
 
-    return this._http.put(`${this._UrlBase}AtualizarCliente?Id=${Id}`, data);
+    return this._http.put(`${this._UrlBase}AtualizarUsuario?Id=${Id}`, data);
 
   }
 
@@ -57,7 +57,7 @@ export class ClienteService {
 
     debugger
 
-    return this._http.delete(`${this._UrlBase}RemoverCliente?Id=${Id}`);
+    return this._http.delete(`${this._UrlBase}RemoverUsuario?Id=${Id}`);
 
   }
 

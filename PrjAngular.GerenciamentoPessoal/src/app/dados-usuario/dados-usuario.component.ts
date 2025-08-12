@@ -1,48 +1,44 @@
 import { Component } from '@angular/core';
-import { ClienteService } from '../services/cliente.service';
-import { Cliente } from '../interfaces/Cliente.interface';
+import { UsuarioService } from '../services/usuario.service';
+import { Usuario } from '../interfaces/Usuario.interface';
 
 @Component({
 
-  selector: 'app-dados-cliente',
+  selector: 'app-dados-usuario',
 
-  templateUrl: './dados-cliente.component.html'
+  templateUrl: './dados-usuario.component.html'
 
 })
 
-export class DadosClientes {
+export class DadosUsuarios {
 
-  public clientes: Cliente[];
+  public usuarios: Usuario[];
 
   public _UrlBase: string;
 
-  public _ClienteService: ClienteService;
+  public _UsuarioService: UsuarioService;
 
-  public cliente = {
+  public usuario = {
 
     id: '',
 
     nome: '',
 
-    celular: '',
+    email: '',
 
-    ativo: '',
-
-    diretorioDocumentos: ''
+    celular: ''    
 
   };
 
-  public clienteObtido = {
+  public usuarioObtido = {
 
     id: '',
 
     nome: '',
 
-    celular: '',
+    email: '',
 
-    ativo: '',
-
-    diretorioDocumentos: ''
+    celular: ''
 
   };
 
@@ -54,27 +50,27 @@ export class DadosClientes {
 
   public idParaEdicao = '';
 
-  constructor(ClienteService: ClienteService) {
+  constructor(UsuarioService: UsuarioService) {
 
     debugger
 
-    this._UrlBase = "https://192.168.15.7:8082/api/Administracao/";
+    this._UrlBase = "http://localhost:5133/api/Usuario/";
 
-    this._ClienteService = ClienteService;
+    this._UsuarioService = UsuarioService;
 
-    this.clientes = []
+    this.usuarios = []
 
   }
 
   public ObterRegistrosAtualizados(): void {
 
-    this._ClienteService.getAll().subscribe(
+    this._UsuarioService.getAll().subscribe(
 
       resultado => {
 
         debugger
 
-        this.clientes = resultado;
+        this.usuarios = resultado;
 
       },
 
@@ -98,14 +94,12 @@ export class DadosClientes {
 
       id: 0,
 
-      nome: this.cliente.nome,
+      nome: this.usuario.nome,
 
-      celular: this.cliente.celular,
+      email: this.usuario.email,
 
-      ativo: this.cliente.ativo,
-
-      diretorioDocumentos: this.cliente.diretorioDocumentos
-
+      celular: this.usuario.celular,
+      
     };
 
     debugger
@@ -114,7 +108,7 @@ export class DadosClientes {
 
       debugger
 
-      this._ClienteService.create(data).subscribe(
+      this._UsuarioService.create(data).subscribe(
 
         resultado => {
 
@@ -141,7 +135,7 @@ export class DadosClientes {
 
       debugger
 
-      this._ClienteService.update(this.idParaEdicao, data).subscribe(
+      this._UsuarioService.update(this.idParaEdicao, data).subscribe(
 
         resultado => {
 
@@ -168,7 +162,7 @@ export class DadosClientes {
 
   }
 
-  public adicionarCliente(): void {
+  public adicionarUsuario(): void {
 
     debugger
 
@@ -176,18 +170,16 @@ export class DadosClientes {
 
     this.submited = false;
 
-    this.cliente = {
+    this.usuario = {
 
       id: '',
 
       nome: '',
 
-      celular: '',
+      email: '',
 
-      ativo: '',
-
-      diretorioDocumentos: ''
-
+      celular: ''
+      
     };
 
   }
@@ -208,25 +200,23 @@ export class DadosClientes {
 
     this.submited = false;
 
-    this.cliente = {
+    this.usuario = {
 
       id: '',
 
       nome: '',
 
-      celular: '',
+      email: '',
 
-      ativo: '',
-
-      diretorioDocumentos: ''
+      celular: ''
 
     };
 
     debugger
 
-    this.obterCliente(Id);
+    this.obterUsuario(Id);
 
-    var cliente = this.clienteObtido;
+    var usuario = this.usuarioObtido;
 
     debugger
 
@@ -234,19 +224,18 @@ export class DadosClientes {
 
   }
 
-  public obterCliente(Id: Number): void {
+  public obterUsuario(Id: Number): void {
 
-    this._ClienteService.get(Id).subscribe(
+    this._UsuarioService.get(Id).subscribe(
 
       resultado => {
 
         debugger
 
-        this.clienteObtido.id = resultado.id.toString();
-        this.clienteObtido.nome = resultado.nome;
-        this.clienteObtido.celular = resultado.celular;
-        this.clienteObtido.ativo = resultado.ativo ? "true" : "false";
-        this.clienteObtido.diretorioDocumentos = resultado.diretorioDocumentos;
+        this.usuarioObtido.id = resultado.id.toString();
+        this.usuarioObtido.nome = resultado.nome;
+        this.usuarioObtido.email = resultado.email;
+        this.usuarioObtido.celular = resultado.celular;       
 
         this.preencherCampos();
 
@@ -276,11 +265,10 @@ export class DadosClientes {
 
     debugger
 
-    this.cliente.nome = this.clienteObtido.nome;
-    this.cliente.celular = this.clienteObtido.celular;
-    this.cliente.ativo = this.clienteObtido.ativo;
-    this.cliente.diretorioDocumentos = this.clienteObtido.diretorioDocumentos;
-    this.idParaEdicao = this.clienteObtido.id;
+    this.usuario.nome = this.usuarioObtido.nome;
+    this.usuario.email = this.usuarioObtido.email;
+    this.usuario.celular = this.usuarioObtido.celular;    
+    this.idParaEdicao = this.usuarioObtido.id;
 
     debugger
 
@@ -292,23 +280,21 @@ export class DadosClientes {
 
     this.submited = false;
 
-    this.cliente = {
+    this.usuario = {
 
       id: '',
 
       nome: '',
 
-      celular: '',
+      email: '',
 
-      ativo: '',
-
-      diretorioDocumentos: ''
+      celular: ''
 
     };
 
     debugger
 
-    this._ClienteService.delete(Id).subscribe(
+    this._UsuarioService.delete(Id).subscribe(
 
       resultado => {
 
