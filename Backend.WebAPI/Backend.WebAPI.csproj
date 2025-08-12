@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrjAngular.Application\PrjAngular.Application.csproj" />
-    <ProjectReference Include="..\PrjAngular.Domain\PrjAngular.Domain.csproj" />
+    <ProjectReference Include="..\Backend.Application\Backend.Application.csproj" />
+    <ProjectReference Include="..\Backend.Domain\Backend.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrjAngular.Domain\PrjAngular.Domain.csproj" />
-    <ProjectReference Include="..\PrjAngular.Infrastructure\PrjAngular.Infrastructure.csproj" />
+    <ProjectReference Include="..\Backend.Domain\Backend.Domain.csproj" />
+    <ProjectReference Include="..\Backend.Infrastructure\Backend.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

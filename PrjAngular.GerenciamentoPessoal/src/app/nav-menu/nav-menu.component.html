@@ -1,0 +1,30 @@
+<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+  >
+    <div class="container">
+      <div class="row">
+        <h4>&nbsp;</h4>
+      </div>
+      <div>
+        <a class="navbar-brand" [routerLink]="['/']"><h1><strong>Sistema imobiliário - versão 1.0</strong></h1></a>
+      </div>
+      <div class="row">
+        <h4>&nbsp;</h4>
+      </div>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Início</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/dados-cliente']">Dados Cliente</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

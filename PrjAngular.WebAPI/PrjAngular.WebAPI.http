@@ -1,6 +1,0 @@
-@PrjAngular.WebAPI_HostAddress = http://localhost:5104
-
-GET {{PrjAngular.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
