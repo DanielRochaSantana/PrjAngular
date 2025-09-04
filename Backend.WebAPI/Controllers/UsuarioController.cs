@@ -25,17 +25,17 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a adição de um usuário.
         /// </summary>
-        /// <param name="usuarioModel">O parâmetro usuarioModel.</param>
+        /// <param name="itermediateUsuarioModel">O parâmetro usuarioModel.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
         [HttpPost(Name = "AdicionarUsuario")]
-        public ActionResult<HttpResponseMessage> AdicionarUsuario([FromBody] UsuarioModel usuarioModel)
+        public ActionResult<HttpResponseMessage> AdicionarUsuario([FromBody] IntermediateUsuarioModel itermediateUsuarioModel)
         {
             try
             {
-                if (usuarioModel == null || usuarioModel.IsEdit)
+                if (itermediateUsuarioModel == null || itermediateUsuarioModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Usuario usuario = ObjectFactory.GetUsuarioFromUsuarioModel(usuarioModel);
+                Usuario usuario = ObjectFactory.GetUsuarioFromIntermediateUsuarioModel(itermediateUsuarioModel);
 
                 _usuarioService.Adicionar(usuario, Constants.ID, Constants.USUARIO);
 
@@ -73,18 +73,25 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a atualização de um usuário.
         /// </summary>
-        /// <param name="IdUsuario">O parâmetro IdUsuario</param>
+        /// <param name="Id">O parâmetro IdUsuario</param>
         /// <param name="_usuario">O parâmetro _usuario</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
         [HttpPut(Name = "AtualizarUsuario")]
-        public ActionResult<HttpResponseMessage> AtualizarUsuario(Guid IdUsuario, [FromBody] UsuarioModel? _usuario)
+        public ActionResult<HttpResponseMessage> AtualizarUsuario([FromQuery] string Id, [FromBody] IntermediateUsuarioModel? _usuario)
         {
             try
             {
-                if (_usuario == null || !_usuario.IsEdit)
+                if (_usuario == null ||
+                    !_usuario.IsEdit ||
+                    string.IsNullOrEmpty(Id) ||
+                    string.IsNullOrWhiteSpace(Id) ||
+                    Id == Guid.Empty.ToString()
+                    )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Usuario usuario = ObjectFactory.GetUsuarioFromUsuarioModel(_usuario);
+                _usuario.Id = Id;
+
+                Usuario usuario = ObjectFactory.GetUsuarioFromIntermediateUsuarioModel(_usuario);
 
                 _usuarioService.Atualizar(usuario, Constants.ID, Constants.USUARIO);
 
