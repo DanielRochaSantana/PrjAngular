@@ -22,17 +22,21 @@ export class DadosUsuarios {
 
     id: '',
 
+    isEdit: false,
+
     nome: '',
 
     email: '',
 
-    celular: ''    
+    celular: ''
 
   };
 
   public usuarioObtido = {
 
     id: '',
+
+    isEdit: false,
 
     nome: '',
 
@@ -54,7 +58,7 @@ export class DadosUsuarios {
 
     debugger
 
-    this._UrlBase = "http://localhost:5133/api/Usuario/";
+    this._UrlBase = "http://localhost:5275/api/Usuario/";
 
     this._UsuarioService = UsuarioService;
 
@@ -92,14 +96,16 @@ export class DadosUsuarios {
 
     const data = {
 
-      id: 0,
+      id: '',
+
+      isEdit: false,
 
       nome: this.usuario.nome,
 
       email: this.usuario.email,
 
       celular: this.usuario.celular,
-      
+
     };
 
     debugger
@@ -134,6 +140,8 @@ export class DadosUsuarios {
     if (this.editar) {
 
       debugger
+
+      data.isEdit = true;
 
       this._UsuarioService.update(this.idParaEdicao, data).subscribe(
 
@@ -174,12 +182,14 @@ export class DadosUsuarios {
 
       id: '',
 
+      isEdit: false,
+
       nome: '',
 
       email: '',
 
       celular: ''
-      
+
     };
 
   }
@@ -194,7 +204,7 @@ export class DadosUsuarios {
 
   }
 
-  public editarItem(Id: Number): void {
+  public editarItem(Id: string): void {
 
     debugger
 
@@ -203,6 +213,8 @@ export class DadosUsuarios {
     this.usuario = {
 
       id: '',
+
+      isEdit: false,
 
       nome: '',
 
@@ -224,7 +236,7 @@ export class DadosUsuarios {
 
   }
 
-  public obterUsuario(Id: Number): void {
+  public obterUsuario(Id: string): void {
 
     this._UsuarioService.get(Id).subscribe(
 
@@ -235,7 +247,8 @@ export class DadosUsuarios {
         this.usuarioObtido.id = resultado.id.toString();
         this.usuarioObtido.nome = resultado.nome;
         this.usuarioObtido.email = resultado.email;
-        this.usuarioObtido.celular = resultado.celular;       
+        this.usuarioObtido.celular = resultado.celular;
+        this.usuarioObtido.isEdit = true;
 
         this.preencherCampos();
 
@@ -267,14 +280,14 @@ export class DadosUsuarios {
 
     this.usuario.nome = this.usuarioObtido.nome;
     this.usuario.email = this.usuarioObtido.email;
-    this.usuario.celular = this.usuarioObtido.celular;    
+    this.usuario.celular = this.usuarioObtido.celular;
     this.idParaEdicao = this.usuarioObtido.id;
 
     debugger
 
   }
 
-  public removerItem(Id: Number): void {
+  public removerItem(Id: string): void {
 
     debugger
 
@@ -283,6 +296,8 @@ export class DadosUsuarios {
     this.usuario = {
 
       id: '',
+
+      isEdit: false,
 
       nome: '',
 

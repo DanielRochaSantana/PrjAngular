@@ -1,11 +1,13 @@
 export interface Usuario {
 
-  id: number;
+  id: string;
+
+  isEdit: boolean;
 
   nome: string;
 
   email: string;
 
   celular: string;
-  
+
 }

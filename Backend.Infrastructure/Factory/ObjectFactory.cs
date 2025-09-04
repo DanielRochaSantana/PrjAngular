@@ -44,6 +44,31 @@ namespace Backend.Infrastructure.Factory
             return new();
         }
 
+        public static Usuario GetUsuarioFromIntermediateUsuarioModel(IntermediateUsuarioModel? intermediateUsuarioModel)
+        {
+            Guid _id = Guid.Empty;
+
+            if (intermediateUsuarioModel != null && intermediateUsuarioModel.Id != Guid.Empty.ToString())
+                Guid.TryParse(intermediateUsuarioModel.Id, out _id);
+
+            if (_id == Guid.Empty)
+                _id = Guid.NewGuid();
+
+            if (intermediateUsuarioModel != null)
+                return new Usuario
+                {
+                    Celular = intermediateUsuarioModel.Celular,
+                    DataCadastro = intermediateUsuarioModel.DataCadastro,
+                    DataModificacao = intermediateUsuarioModel.DataModificacao,
+                    Email = intermediateUsuarioModel.Email,
+                    Id = _id,
+                    IsAtivo = intermediateUsuarioModel.IsAtivo,
+                    Nome = intermediateUsuarioModel.Nome
+                };
+
+            return new();
+        }
+
         public enum EntityEnum
         {
             Usuario = 0

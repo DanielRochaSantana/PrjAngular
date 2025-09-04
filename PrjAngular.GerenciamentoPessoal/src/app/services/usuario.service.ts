@@ -17,7 +17,7 @@ export class UsuarioService {
 
     this._http = http;
 
-    this._UrlBase = "http://localhost:5133/api/Usuario/";
+    this._UrlBase = "http://localhost:5275/api/Usuario/";
 
   }
 
@@ -25,7 +25,7 @@ export class UsuarioService {
 
     debugger
 
-    return this._http.get<Usuario[]>(`${this._UrlBase}ListarUsuarios`);
+    return this._http.get<Usuario[]>(`${this._UrlBase}ObterUsuarios`);
 
   }
 
@@ -33,7 +33,7 @@ export class UsuarioService {
 
     debugger
 
-    return this._http.get<Usuario>(`${this._UrlBase}ObterUsuario?Id=${Id}`);
+    return this._http.get<Usuario>(`${this._UrlBase}ObterUsuarioPorId?Id=${Id}`);
 
   }
 
@@ -57,7 +57,7 @@ export class UsuarioService {
 
     debugger
 
-    return this._http.delete(`${this._UrlBase}RemoverUsuario?Id=${Id}`);
+    return this._http.delete(`${this._UrlBase}ApagarUsuario?Id=${Id}`);
 
   }
 
