@@ -106,13 +106,13 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem os usuários.
         /// </summary>
-        /// <returns>ActionResult IEnumerable Usuario.</returns>
+        /// <returns>ActionResult IList Usuario.</returns>
         [HttpGet(Name = "ObterUsuarios")]
-        public ActionResult<IEnumerable<Usuario>> ObterUsuarios()
+        public ActionResult<IList<Usuario>> ObterUsuarios()
         {
             try
             {
-                IEnumerable<Usuario> usuarios = _usuarioService.ListarRegistros(Constants.USUARIO);
+                IList<Usuario> usuarios = _usuarioService.ListarRegistros(Constants.USUARIO).OrderByDescending(i => i.Nome).ToList();
                 return Ok(usuarios);
             }
             catch
