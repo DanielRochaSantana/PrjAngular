@@ -56,7 +56,7 @@ export class DadosUsuarios {
 
   constructor(UsuarioService: UsuarioService) {
 
-    debugger
+    // debugger
 
     this._UrlBase = "http://localhost:5275/api/Usuario/";
 
@@ -72,7 +72,7 @@ export class DadosUsuarios {
 
       resultado => {
 
-        debugger
+        // debugger
 
         this.usuarios = resultado;
 
@@ -80,7 +80,7 @@ export class DadosUsuarios {
 
       erro => {
 
-        debugger
+        // debugger
 
         console.error(erro);
 
@@ -92,7 +92,7 @@ export class DadosUsuarios {
 
   public salvar(): void {
 
-    debugger
+    // debugger
 
     const data = {
 
@@ -108,17 +108,17 @@ export class DadosUsuarios {
 
     };
 
-    debugger
+    // debugger
 
     if (!this.editar) {
 
-      debugger
+      // debugger
 
       this._UsuarioService.create(data).subscribe(
 
         resultado => {
 
-          debugger
+          // debugger
 
           console.log(resultado);
 
@@ -130,7 +130,7 @@ export class DadosUsuarios {
 
         error => {
 
-          debugger
+          // debugger
 
           console.log(error);
 
@@ -139,7 +139,7 @@ export class DadosUsuarios {
 
     if (this.editar) {
 
-      debugger
+      // debugger
 
       data.isEdit = true;
 
@@ -147,7 +147,7 @@ export class DadosUsuarios {
 
         resultado => {
 
-          debugger
+          // debugger
 
           console.log(resultado);
 
@@ -159,7 +159,7 @@ export class DadosUsuarios {
 
         error => {
 
-          debugger
+          // debugger
 
           console.log(error);
 
@@ -172,7 +172,7 @@ export class DadosUsuarios {
 
   public adicionarUsuario(): void {
 
-    debugger
+    // debugger
 
     this.editar = false;
 
@@ -196,7 +196,7 @@ export class DadosUsuarios {
 
   public listarRegistros(): void {
 
-    debugger
+    // debugger
 
     this.ObterRegistrosAtualizados();
 
@@ -206,7 +206,7 @@ export class DadosUsuarios {
 
   public editarItem(Id: string): void {
 
-    debugger
+    // debugger
 
     this.submited = false;
 
@@ -224,13 +224,13 @@ export class DadosUsuarios {
 
     };
 
-    debugger
+    // debugger
 
     this.obterUsuario(Id);
 
     var usuario = this.usuarioObtido;
 
-    debugger
+    // debugger
 
     this.editar = true;
 
@@ -242,7 +242,7 @@ export class DadosUsuarios {
 
       resultado => {
 
-        debugger
+        // debugger
 
         this.usuarioObtido.id = resultado.id.toString();
         this.usuarioObtido.nome = resultado.nome;
@@ -256,7 +256,7 @@ export class DadosUsuarios {
 
       erro => {
 
-        debugger
+        // debugger
 
         console.error(erro);
 
@@ -268,7 +268,7 @@ export class DadosUsuarios {
 
   public limparListagem(): void {
 
-    debugger
+    // debugger
 
     this.listar = false;
 
@@ -276,20 +276,20 @@ export class DadosUsuarios {
 
   public preencherCampos(): void {
 
-    debugger
+    // debugger
 
     this.usuario.nome = this.usuarioObtido.nome;
     this.usuario.email = this.usuarioObtido.email;
     this.usuario.celular = this.usuarioObtido.celular;
     this.idParaEdicao = this.usuarioObtido.id;
 
-    debugger
+    // debugger
 
   }
 
   public removerItem(Id: string): void {
 
-    debugger
+    // debugger
 
     this.submited = false;
 
@@ -307,13 +307,13 @@ export class DadosUsuarios {
 
     };
 
-    debugger
+    // debugger
 
     this._UsuarioService.delete(Id).subscribe(
 
       resultado => {
 
-        debugger
+        // debugger
 
         console.log(resultado);
 
@@ -323,7 +323,7 @@ export class DadosUsuarios {
 
       error => {
 
-        debugger
+        // debugger
 
         console.log(error);
 

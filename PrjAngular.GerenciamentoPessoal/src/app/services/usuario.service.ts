@@ -23,7 +23,7 @@ export class UsuarioService {
 
   getAll(): Observable<Usuario[]> {
 
-    debugger
+    // debugger
 
     return this._http.get<Usuario[]>(`${this._UrlBase}ObterUsuarios`);
 
@@ -31,7 +31,7 @@ export class UsuarioService {
 
   get(Id: any): Observable<Usuario> {
 
-    debugger
+    // debugger
 
     return this._http.get<Usuario>(`${this._UrlBase}ObterUsuarioPorId?Id=${Id}`);
 
@@ -39,7 +39,7 @@ export class UsuarioService {
 
   create(data: any): Observable<any> {
 
-    debugger
+    // debugger
 
     return this._http.post(`${this._UrlBase}AdicionarUsuario`, data);
 
@@ -47,7 +47,7 @@ export class UsuarioService {
 
   update(Id: any, data: any): Observable<any> {
 
-    debugger
+    // debugger
 
     return this._http.put(`${this._UrlBase}AtualizarUsuario?Id=${Id}`, data);
 
@@ -55,7 +55,7 @@ export class UsuarioService {
 
   delete(Id: any): Observable<any> {
 
-    debugger
+    // debugger
 
     return this._http.delete(`${this._UrlBase}ApagarUsuario?Id=${Id}`);
 
@@ -63,7 +63,7 @@ export class UsuarioService {
 
   deleteAll(): Observable<any> {
 
-    debugger
+    // debugger
 
     return this._http.delete(this._UrlBase);
 
@@ -71,7 +71,7 @@ export class UsuarioService {
 
   findByName(name: any): Observable<any> {
 
-    debugger
+    // debugger
 
     return this._http.get(`${this._UrlBase}?Nome=${name}`);
 
