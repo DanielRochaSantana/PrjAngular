@@ -17,6 +17,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRepositorioGenerico<Usuario>, RepositorioGenerico<Usuario>>();
 builder.Services.AddScoped<IConsultaGenerica<Usuario>, ConsultaGenerica<Usuario>>();
+
+builder.Services.AddScoped<IAtividadeService, AtividadeService>();
+builder.Services.AddScoped<IRepositorioGenerico<Atividade>, RepositorioGenerico<Atividade>>();
+builder.Services.AddScoped<IConsultaGenerica<Atividade>, ConsultaGenerica<Atividade>>();
+
 builder.Services.AddScoped<IContext, Context>();
 
 builder.Services.AddCors(

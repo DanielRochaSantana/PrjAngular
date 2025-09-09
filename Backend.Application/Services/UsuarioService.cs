@@ -8,42 +8,42 @@ namespace Backend.Application.Services
 {
     public class UsuarioService : IUsuarioService
     {
-        protected readonly IRepositorioGenerico<Usuario> _repositorioCli;
-        protected readonly IConsultaGenerica<Usuario> _consultaCli;
+        protected readonly IRepositorioGenerico<Usuario> _repositorioUsuario;
+        protected readonly IConsultaGenerica<Usuario> _consultaUsuario;
 
-        public UsuarioService(IRepositorioGenerico<Usuario> repositorioCli,
-                              IConsultaGenerica<Usuario> consultaCli)
+        public UsuarioService(IRepositorioGenerico<Usuario> repositorioUsuario,
+                              IConsultaGenerica<Usuario> consultaUsuario)
         {
-            _repositorioCli = repositorioCli;
-            _consultaCli = consultaCli;
+            _repositorioUsuario = repositorioUsuario;
+            _consultaUsuario = consultaUsuario;
         }
 
         #region CommandSide
         public void Adicionar(Usuario registro, string sPropriedadeChave, string sTableName)
         {
-            _repositorioCli.Adicionar(registro, sPropriedadeChave, sTableName);
+            _repositorioUsuario.Adicionar(registro, sPropriedadeChave, sTableName);
         }
 
         public void Atualizar(Usuario registro, string sPropriedadeChave, string sTableName)
         {
-            _repositorioCli.Atualizar(registro, sPropriedadeChave, sTableName);
+            _repositorioUsuario.Atualizar(registro, sPropriedadeChave, sTableName);
         }
 
         public void Remover(Guid Id, ObjectFactory.EntityEnum entityEnum, string sTableName, string sPropriedadeChave)
         {
-            _repositorioCli.Remover(Id, entityEnum, sTableName, sPropriedadeChave);
+            _repositorioUsuario.Remover(Id, entityEnum, sTableName, sPropriedadeChave);
         }        
         #endregion CommandSide
 
         #region QuerySide
         public IEnumerable<Usuario> ListarRegistros(string sTableName)
         {
-            return _consultaCli.ListarRegistros(sTableName);
+            return _consultaUsuario.ListarRegistros(sTableName);
         }
 
         public Usuario? EncontrarPorCodigo(Guid Id, ObjectFactory.EntityEnum entityEnum, string sTableName, string sPropriedadeChave)
         {
-            return _consultaCli.EncontrarPorCodigo(Id, entityEnum, sTableName, sPropriedadeChave);
+            return _consultaUsuario.EncontrarPorCodigo(Id, entityEnum, sTableName, sPropriedadeChave);
         }        
         #endregion QuerySide
     }
