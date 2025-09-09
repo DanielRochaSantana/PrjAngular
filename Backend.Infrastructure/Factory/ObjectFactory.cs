@@ -11,6 +11,8 @@ namespace Backend.Infrastructure.Factory
             {
                 case EntityEnum.Usuario:
                     return new Usuario { Id = Id };
+                case EntityEnum.Atividade:
+                    return new Atividade { Id = Id };
                 default:
                     return new();
             }
@@ -44,6 +46,23 @@ namespace Backend.Infrastructure.Factory
             return new();
         }
 
+        public static Atividade GetAtividadeFromAtividadeModel(AtividadeModel? atividadeModel)
+        {
+            if (atividadeModel != null)
+                return new Atividade
+                {
+                    Local = atividadeModel.Local,
+                    DataCadastro = atividadeModel.DataCadastro,
+                    DataModificacao = atividadeModel.DataModificacao,
+                    Horario = atividadeModel.Horario,
+                    Id = atividadeModel.Id,
+                    IsAtivo = atividadeModel.IsAtivo,
+                    Descricao = atividadeModel.Descricao
+                };
+
+            return new();
+        }
+
         public static Usuario GetUsuarioFromIntermediateUsuarioModel(IntermediateUsuarioModel? intermediateUsuarioModel)
         {
             Guid _id = Guid.Empty;
@@ -69,9 +88,35 @@ namespace Backend.Infrastructure.Factory
             return new();
         }
 
+        public static Atividade GetAtividadeFromIntermediateAtividadeModel(IntermediateAtividadeModel? intermediateAtividadeModel)
+        {
+            Guid _id = Guid.Empty;
+
+            if (intermediateAtividadeModel != null && intermediateAtividadeModel.Id != Guid.Empty.ToString())
+                Guid.TryParse(intermediateAtividadeModel.Id, out _id);
+
+            if (_id == Guid.Empty)
+                _id = Guid.NewGuid();
+
+            if (intermediateAtividadeModel != null)
+                return new Atividade
+                {
+                    Local = intermediateAtividadeModel.Local,
+                    DataCadastro = intermediateAtividadeModel.DataCadastro,
+                    DataModificacao = intermediateAtividadeModel.DataModificacao,
+                    Horario = intermediateAtividadeModel.Horario,
+                    Id = _id,
+                    IsAtivo = intermediateAtividadeModel.IsAtivo,
+                    Descricao = intermediateAtividadeModel.Descricao
+                };
+
+            return new();
+        }
+
         public enum EntityEnum
         {
-            Usuario = 0
+            Usuario = 0,
+            Atividade = 1
         }
 
         public enum ObjectEnum
