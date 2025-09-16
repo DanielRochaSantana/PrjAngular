@@ -13,6 +13,8 @@ namespace Backend.Infrastructure.Factory
                     return new Usuario { Id = Id };
                 case EntityEnum.Atividade:
                     return new Atividade { Id = Id };
+                case EntityEnum.Despesa:
+                    return new Despesa { Id = Id };
                 default:
                     return new();
             }
@@ -58,6 +60,23 @@ namespace Backend.Infrastructure.Factory
                     Id = atividadeModel.Id,
                     IsAtivo = atividadeModel.IsAtivo,
                     Descricao = atividadeModel.Descricao
+                };
+
+            return new();
+        }
+        
+        public static Despesa GetDespesaFromDespesaModel(DespesaModel? despesaModel)
+        {
+            if (despesaModel != null)
+                return new Despesa
+                {
+                    Local = despesaModel.Local,
+                    DataCadastro = despesaModel.DataCadastro,
+                    DataModificacao = despesaModel.DataModificacao,
+                    Valor = despesaModel.Valor,
+                    Id = despesaModel.Id,
+                    IsAtivo = despesaModel.IsAtivo,
+                    Descricao = despesaModel.Descricao
                 };
 
             return new();
@@ -112,11 +131,37 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
+        
+        public static Despesa GetDespesaFromIntermediateDespesaModel(IntermediateDespesaModel? intermediateDespesaModel)
+        {
+            Guid _id = Guid.Empty;
+
+            if (intermediateDespesaModel != null && intermediateDespesaModel.Id != Guid.Empty.ToString())
+                Guid.TryParse(intermediateDespesaModel.Id, out _id);
+
+            if (_id == Guid.Empty)
+                _id = Guid.NewGuid();
+
+            if (intermediateDespesaModel != null)
+                return new Despesa
+                {
+                    Local = intermediateDespesaModel.Local,
+                    DataCadastro = intermediateDespesaModel.DataCadastro,
+                    DataModificacao = intermediateDespesaModel.DataModificacao,
+                    Valor = intermediateDespesaModel.Valor,
+                    Id = _id,
+                    IsAtivo = intermediateDespesaModel.IsAtivo,
+                    Descricao = intermediateDespesaModel.Descricao
+                };
+
+            return new();
+        }
 
         public enum EntityEnum
         {
             Usuario = 0,
-            Atividade = 1
+            Atividade = 1,
+            Despesa = 2
         }
 
         public enum ObjectEnum
