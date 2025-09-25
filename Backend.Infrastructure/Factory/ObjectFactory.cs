@@ -15,6 +15,8 @@ namespace Backend.Infrastructure.Factory
                     return new Atividade { Id = Id };
                 case EntityEnum.Despesa:
                     return new Despesa { Id = Id };
+                case EntityEnum.Atuacao:
+                    return new Atuacao { Id = Id };
                 default:
                     return new();
             }
@@ -77,6 +79,23 @@ namespace Backend.Infrastructure.Factory
                     Id = despesaModel.Id,
                     IsAtivo = despesaModel.IsAtivo,
                     Descricao = despesaModel.Descricao
+                };
+
+            return new();
+        }
+        
+        public static Atuacao GetAtuacaoFromAtuacaoModel(AtuacaoModel? atuacaoModel)
+        {
+            if (atuacaoModel != null)
+                return new Atuacao
+                {
+                    Local = atuacaoModel.Local,
+                    DataCadastro = atuacaoModel.DataCadastro,
+                    DataModificacao = atuacaoModel.DataModificacao,
+                    Empresa = atuacaoModel.Empresa,
+                    Id = atuacaoModel.Id,
+                    IsAtivo = atuacaoModel.IsAtivo,
+                    Descricao = atuacaoModel.Descricao
                 };
 
             return new();
@@ -156,12 +175,38 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
+        
+        public static Atuacao GetAtuacaoFromIntermediateAtuacaoModel(IntermediateAtuacaoModel? intermediateAtuacaoModel)
+        {
+            Guid _id = Guid.Empty;
+
+            if (intermediateAtuacaoModel != null && intermediateAtuacaoModel.Id != Guid.Empty.ToString())
+                Guid.TryParse(intermediateAtuacaoModel.Id, out _id);
+
+            if (_id == Guid.Empty)
+                _id = Guid.NewGuid();
+
+            if (intermediateAtuacaoModel != null)
+                return new Atuacao
+                {
+                    Local = intermediateAtuacaoModel.Local,
+                    DataCadastro = intermediateAtuacaoModel.DataCadastro,
+                    DataModificacao = intermediateAtuacaoModel.DataModificacao,
+                    Empresa = intermediateAtuacaoModel.Empresa,
+                    Id = _id,
+                    IsAtivo = intermediateAtuacaoModel.IsAtivo,
+                    Descricao = intermediateAtuacaoModel.Descricao
+                };
+
+            return new();
+        }
 
         public enum EntityEnum
         {
             Usuario = 0,
             Atividade = 1,
-            Despesa = 2
+            Despesa = 2,
+            Atuacao = 3
         }
 
         public enum ObjectEnum

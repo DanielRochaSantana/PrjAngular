@@ -26,6 +26,10 @@ builder.Services.AddScoped<IDespesaService, DespesaService>();
 builder.Services.AddScoped<IRepositorioGenerico<Despesa>, RepositorioGenerico<Despesa>>();
 builder.Services.AddScoped<IConsultaGenerica<Despesa>, ConsultaGenerica<Despesa>>();
 
+builder.Services.AddScoped<IAtuacaoService, AtuacaoService>();
+builder.Services.AddScoped<IRepositorioGenerico<Atuacao>, RepositorioGenerico<Atuacao>>();
+builder.Services.AddScoped<IConsultaGenerica<Atuacao>, ConsultaGenerica<Atuacao>>();
+
 builder.Services.AddScoped<IContext, Context>();
 
 builder.Services.AddCors(
