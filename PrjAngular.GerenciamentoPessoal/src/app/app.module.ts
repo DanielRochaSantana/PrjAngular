@@ -10,6 +10,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { DadosUsuarios } from './dados-usuario/dados-usuario.component';
 import { DadosAtividades } from './dados-atividade/dados-atividade.component';
 import { DadosDespesas } from './dados-despesa/dados-despesa.component';
+import { DadosAtuacoes } from './dados-atuacao/dados-atuacao.component';
 import { Inicio } from './inicio/inicio.component';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { Inicio } from './inicio/inicio.component';
     NavMenuComponent,
     DadosUsuarios,
     DadosAtividades,
-    DadosDespesas
+    DadosDespesas,
+    DadosAtuacoes
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { Inicio } from './inicio/inicio.component';
       { path: '', component: Inicio, pathMatch: 'full' },
       { path: 'dados-usuario', component: DadosUsuarios },
       { path: 'dados-atividade', component: DadosAtividades },
-      { path: 'dados-despesa', component: DadosDespesas }
+      { path: 'dados-despesa', component: DadosDespesas },
+      { path: 'dados-atuacao', component: DadosAtuacoes }
     ])
   ],
   providers: [],

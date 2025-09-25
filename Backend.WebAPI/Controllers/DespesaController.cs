@@ -23,7 +23,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Efetua a adição de um usuário.
+        /// Efetua a adição de um despesa.
         /// </summary>
         /// <param name="itermediateDespesaModel">O parâmetro despesaModel.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
@@ -48,7 +48,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Efetua a remoção de um usuário.
+        /// Efetua a remoção de um despesa.
         /// </summary>
         /// <param name="Id">O parâmetro Id.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
@@ -71,7 +71,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Efetua a atualização de um usuário.
+        /// Efetua a atualização de um despesa.
         /// </summary>
         /// <param name="Id">O parâmetro IdDespesa</param>
         /// <param name="_despesa">O parâmetro _despesa</param>
@@ -104,7 +104,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Obtem os usuários.
+        /// Obtem os despesas.
         /// </summary>
         /// <returns>ActionResult IList Despesa.</returns>
         [HttpGet(Name = "ObterDespesas")]
@@ -122,7 +122,7 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Obtem Usuário por Id.
+        /// Obtem Despesa por Id.
         /// </summary>
         /// <param name="Id">O parâmetro Id.</param>
         /// <returns>ActionResult Despesa.</returns>

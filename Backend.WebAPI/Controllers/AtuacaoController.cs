@@ -10,34 +10,34 @@ namespace Backend.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AtividadeController : ControllerBase
+    public class AtuacaoController : ControllerBase
     {
-        protected readonly IAtividadeService _atividadeService;
+        protected readonly IAtuacaoService _atuacaoService;
 
         /// <summary>
         /// Construtor.
         /// </summary>
-        public AtividadeController(IAtividadeService atividadeService)
+        public AtuacaoController(IAtuacaoService atuacaoService)
         {
-            _atividadeService = atividadeService;
+            _atuacaoService = atuacaoService;
         }
 
         /// <summary>
-        /// Efetua a adição de um atividade.
+        /// Efetua a adição de um atuação.
         /// </summary>
-        /// <param name="itermediateAtividadeModel">O parâmetro atividadeModel.</param>
+        /// <param name="itermediateAtuacaoModel">O parâmetro atuacaoModel.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
-        [HttpPost(Name = "AdicionarAtividade")]
-        public ActionResult<HttpResponseMessage> AdicionarAtividade([FromBody] IntermediateAtividadeModel itermediateAtividadeModel)
+        [HttpPost(Name = "AdicionarAtuacao")]
+        public ActionResult<HttpResponseMessage> AdicionarAtuacao([FromBody] IntermediateAtuacaoModel itermediateAtuacaoModel)
         {
             try
             {
-                if (itermediateAtividadeModel == null || itermediateAtividadeModel.IsEdit)
+                if (itermediateAtuacaoModel == null || itermediateAtuacaoModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Atividade atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(itermediateAtividadeModel);
+                Atuacao atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(itermediateAtuacaoModel);
 
-                _atividadeService.Adicionar(atividade, Constants.ID, Constants.ATIVIDADE);
+                _atuacaoService.Adicionar(atuacao, Constants.ID, Constants.ATUACAO);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -48,19 +48,19 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Efetua a remoção de um atividade.
+        /// Efetua a remoção de um atuação.
         /// </summary>
         /// <param name="Id">O parâmetro Id.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
-        [HttpDelete(Name = "ApagarAtividade")]
-        public ActionResult<HttpResponseMessage> ApagarAtividade(Guid Id)
+        [HttpDelete(Name = "ApagarAtuacao")]
+        public ActionResult<HttpResponseMessage> ApagarAtuacao(Guid Id)
         {
             try
             {
                 if (Id == Guid.Empty)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atividadeService.Remover(Id, ObjectFactory.EntityEnum.Atividade, Constants.ATIVIDADE, Constants.ID);
+                _atuacaoService.Remover(Id, ObjectFactory.EntityEnum.Atuacao, Constants.ATUACAO, Constants.ID);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -71,29 +71,29 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Efetua a atualização de um atividade.
+        /// Efetua a atualização de um atuação.
         /// </summary>
-        /// <param name="Id">O parâmetro IdAtividade</param>
-        /// <param name="_atividade">O parâmetro _atividade</param>
+        /// <param name="Id">O parâmetro IdAtuacao</param>
+        /// <param name="_atuacao">O parâmetro _atuacao</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
-        [HttpPut(Name = "AtualizarAtividade")]
-        public ActionResult<HttpResponseMessage> AtualizarAtividade([FromQuery] string Id, [FromBody] IntermediateAtividadeModel? _atividade)
+        [HttpPut(Name = "AtualizarAtuacao")]
+        public ActionResult<HttpResponseMessage> AtualizarAtuacao([FromQuery] string Id, [FromBody] IntermediateAtuacaoModel? _atuacao)
         {
             try
             {
-                if (_atividade == null ||
-                    !_atividade.IsEdit ||
+                if (_atuacao == null ||
+                    !_atuacao.IsEdit ||
                     string.IsNullOrEmpty(Id) ||
                     string.IsNullOrWhiteSpace(Id) ||
                     Id == Guid.Empty.ToString()
                     )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atividade.Id = Id;
+                _atuacao.Id = Id;
 
-                Atividade atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(_atividade);
+                Atuacao atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(_atuacao);
 
-                _atividadeService.Atualizar(atividade, Constants.ID, Constants.ATIVIDADE);
+                _atuacaoService.Atualizar(atuacao, Constants.ID, Constants.ATUACAO);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -104,16 +104,16 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Obtem os atividades.
+        /// Obtem as atuações.
         /// </summary>
-        /// <returns>ActionResult IList Atividade.</returns>
-        [HttpGet(Name = "ObterAtividades")]
-        public ActionResult<IList<Atividade>> ObterAtividades()
+        /// <returns>ActionResult IList Atuacao.</returns>
+        [HttpGet(Name = "ObterAtuacoes")]
+        public ActionResult<IList<Atuacao>> ObterAtuacoes()
         {
             try
             {
-                IList<Atividade> atividades = _atividadeService.ListarRegistros(Constants.ATIVIDADE).OrderByDescending(i => i.Descricao).ToList();
-                return Ok(atividades);
+                IList<Atuacao> atuacoes = _atuacaoService.ListarRegistros(Constants.ATUACAO).OrderByDescending(i => i.Descricao).ToList();
+                return Ok(atuacoes);
             }
             catch
             {
@@ -122,20 +122,20 @@ namespace Backend.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Obtem Atividade por Id.
+        /// Obtem Atuação por Id.
         /// </summary>
         /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult Atividade.</returns>
-        [HttpGet(Name = "ObterAtividadePorId")]
-        public ActionResult<Atividade> ObterAtividadePorId(Guid Id)
+        /// <returns>ActionResult Atuacao.</returns>
+        [HttpGet(Name = "ObterAtuacaoPorId")]
+        public ActionResult<Atuacao> ObterAtuacaoPorId(Guid Id)
         {
             try
             {
-                Atividade? atividade = _atividadeService.EncontrarPorCodigo(Id,
-                                                                      ObjectFactory.EntityEnum.Atividade,
-                                                                      Constants.ATIVIDADE,
+                Atuacao? atuacao = _atuacaoService.EncontrarPorCodigo(Id,
+                                                                      ObjectFactory.EntityEnum.Atuacao,
+                                                                      Constants.ATUACAO,
                                                                       Constants.ID);
-                return Ok(atividade);
+                return Ok(atuacao);
             }
             catch
             {
