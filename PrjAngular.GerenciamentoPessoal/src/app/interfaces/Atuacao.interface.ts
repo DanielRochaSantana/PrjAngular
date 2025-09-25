@@ -6,7 +6,7 @@ export interface Atuacao {
 
   descricao: string;
 
-  empresa: number;
+  empresa: string;
 
   local: string;
 
