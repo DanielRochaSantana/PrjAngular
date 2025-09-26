@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Backend.Domain\Backend.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Planning\" />
+    <Folder Include="SQL Scripts\" />
+  </ItemGroup>
+
 </Project>
