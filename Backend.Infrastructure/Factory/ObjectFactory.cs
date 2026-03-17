@@ -17,6 +17,8 @@ namespace Backend.Infrastructure.Factory
                     return new Despesa { Id = Id };
                 case EntityEnum.Atuacao:
                     return new Atuacao { Id = Id };
+                case EntityEnum.Compromisso:
+                    return new Compromisso { Id = Id };
                 default:
                     return new();
             }
@@ -66,7 +68,7 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
-        
+
         public static Despesa GetDespesaFromDespesaModel(DespesaModel? despesaModel)
         {
             if (despesaModel != null)
@@ -83,7 +85,7 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
-        
+
         public static Atuacao GetAtuacaoFromAtuacaoModel(AtuacaoModel? atuacaoModel)
         {
             if (atuacaoModel != null)
@@ -96,6 +98,23 @@ namespace Backend.Infrastructure.Factory
                     Id = atuacaoModel.Id,
                     IsAtivo = atuacaoModel.IsAtivo,
                     Descricao = atuacaoModel.Descricao
+                };
+
+            return new();
+        }
+
+        public static Compromisso GetCompromissoFromCompromissoModel(CompromissoModel? compromissoModel)
+        {
+            if (compromissoModel != null)
+                return new Compromisso
+                {
+                    Local = compromissoModel.Local,
+                    DataCadastro = compromissoModel.DataCadastro,
+                    DataModificacao = compromissoModel.DataModificacao,
+                    HoraInicio = compromissoModel.HoraInicio,
+                    Id = compromissoModel.Id,
+                    IsAtivo = compromissoModel.IsAtivo,
+                    Descricao = compromissoModel.Descricao
                 };
 
             return new();
@@ -150,7 +169,7 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
-        
+
         public static Despesa GetDespesaFromIntermediateDespesaModel(IntermediateDespesaModel? intermediateDespesaModel)
         {
             Guid _id = Guid.Empty;
@@ -175,7 +194,7 @@ namespace Backend.Infrastructure.Factory
 
             return new();
         }
-        
+
         public static Atuacao GetAtuacaoFromIntermediateAtuacaoModel(IntermediateAtuacaoModel? intermediateAtuacaoModel)
         {
             Guid _id = Guid.Empty;
@@ -201,12 +220,38 @@ namespace Backend.Infrastructure.Factory
             return new();
         }
 
+        public static Compromisso GetCompromissoFromIntermediateCompromissoModel(IntermediateCompromissoModel? intermediateCompromissoModel)
+        {
+            Guid _id = Guid.Empty;
+
+            if (intermediateCompromissoModel != null && intermediateCompromissoModel.Id != Guid.Empty.ToString())
+                Guid.TryParse(intermediateCompromissoModel.Id, out _id);
+
+            if (_id == Guid.Empty)
+                _id = Guid.NewGuid();
+
+            if (intermediateCompromissoModel != null)
+                return new Compromisso
+                {
+                    Local = intermediateCompromissoModel.Local,
+                    DataCadastro = intermediateCompromissoModel.DataCadastro,
+                    DataModificacao = intermediateCompromissoModel.DataModificacao,
+                    HoraInicio = intermediateCompromissoModel.HoraInicio,
+                    Id = _id,
+                    IsAtivo = intermediateCompromissoModel.IsAtivo,
+                    Descricao = intermediateCompromissoModel.Descricao
+                };
+
+            return new();
+        }
+
         public enum EntityEnum
         {
             Usuario = 0,
             Atividade = 1,
             Despesa = 2,
-            Atuacao = 3
+            Atuacao = 3,
+            Compromisso = 4
         }
 
         public enum ObjectEnum

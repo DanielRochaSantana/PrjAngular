@@ -11,6 +11,7 @@ import { DadosUsuarios } from './dados-usuario/dados-usuario.component';
 import { DadosAtividades } from './dados-atividade/dados-atividade.component';
 import { DadosDespesas } from './dados-despesa/dados-despesa.component';
 import { DadosAtuacoes } from './dados-atuacao/dados-atuacao.component';
+import { DadosCompromissos } from './dados-compromisso/dados-compromisso.component';
 import { Inicio } from './inicio/inicio.component';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { Inicio } from './inicio/inicio.component';
     DadosUsuarios,
     DadosAtividades,
     DadosDespesas,
-    DadosAtuacoes
+    DadosAtuacoes,
+    DadosCompromissos
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { Inicio } from './inicio/inicio.component';
       { path: 'dados-usuario', component: DadosUsuarios },
       { path: 'dados-atividade', component: DadosAtividades },
       { path: 'dados-despesa', component: DadosDespesas },
-      { path: 'dados-atuacao', component: DadosAtuacoes }
+      { path: 'dados-atuacao', component: DadosAtuacoes },
+      { path: 'dados-compromisso', component: DadosCompromissos }
     ])
   ],
   providers: [],
