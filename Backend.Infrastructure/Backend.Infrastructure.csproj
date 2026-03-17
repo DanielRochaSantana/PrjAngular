@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Planning\" />
-    <Folder Include="SQL Scripts\" />
   </ItemGroup>
 
 </Project>

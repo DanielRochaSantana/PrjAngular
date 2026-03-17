@@ -7,5 +7,6 @@
         public const string ATIVIDADE = "Atividade";
         public const string DESPESA = "Despesa";
         public const string ATUACAO = "Atuacao";
+        public const string COMPROMISSO = "Compromisso";
     }
 }

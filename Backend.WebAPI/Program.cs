@@ -30,6 +30,10 @@ builder.Services.AddScoped<IAtuacaoService, AtuacaoService>();
 builder.Services.AddScoped<IRepositorioGenerico<Atuacao>, RepositorioGenerico<Atuacao>>();
 builder.Services.AddScoped<IConsultaGenerica<Atuacao>, ConsultaGenerica<Atuacao>>();
 
+builder.Services.AddScoped<ICompromissoService, CompromissoService>();
+builder.Services.AddScoped<IRepositorioGenerico<Compromisso>, RepositorioGenerico<Compromisso>>();
+builder.Services.AddScoped<IConsultaGenerica<Compromisso>, ConsultaGenerica<Compromisso>>();
+
 builder.Services.AddScoped<IContext, Context>();
 
 builder.Services.AddCors(
