@@ -1,4 +1,4 @@
-Update Date: 26/09/2025
+Update Date: 08/05/2026
 
 -------------------------------------------------------------------
 (angular)
@@ -14,28 +14,27 @@ Components:
 2- atividades           - implementado;
 3- despesas             - implementado;
 4- atuações             - implementado;
-5- compromissos         - current; 
-6- cursos               - pendente;
+5- compromissos         - implementado; 
+6- cursos               - current;
 7- aprendizados         - pendente;
 8- patrimônio           - pendente;
 
 Tables:
-1- Usuario      (usuários)             - à versionar script;
-2- Atividade    (atividades)           - à versionar script;
-3- Despesa      (despesas)             - à versionar script;
-4- Atuacao      (atuações)             - à versionar script;
-5- Compromisso  (compromissos)         - current; 
-6- Curso        (cursos)               - pendente;
+1- Usuario      (usuários)             - script versionado;
+2- Atividade    (atividades)           - script versionado;
+3- Despesa      (despesas)             - script versionado;
+4- Atuacao      (atuações)             - script versionado;
+5- Compromisso  (compromissos)         - script versionado; 
+6- Curso        (cursos)               - current;
 7- Aprendizado  (aprendizados)         - pendente;
 8- Patrimonio   (patrimônio)           - pendente;
 
 Next components:
 
-// TODO: implementar os componentes (utilizar como insumo de entrada em registros - atual currículo): 
-   a dados-compromisso (descricao (ex. Ir para o PG), horaInicio (18:00), local (IASD Capão Redondo)); - current;
-   b dados-curso (descricao (ex. Ciência da Computação), instituicao (Unasp), local (SP-SP) - conforme o currículo); - pendente;
-   c dados-aprendizado (descricao (ex. DDD), status (Concluído), prioridade (0) - conforme o currículo); - pendente;
-   d dados-patrimonio (descricao (ex. celular samsung), tipo (eletrônico), finalidade (utilização de whatsapp e para ligações)); - pendente;   
+Implementar os componentes (utilizar como insumo de entrada em registros - atual currículo): 
+   a dados-curso (descricao (ex. Ciência da Computação), instituicao (Unasp), local (SP-SP) - conforme o currículo); - current;
+   b dados-aprendizado (descricao (ex. DDD), status (Concluído), prioridade (0) - conforme o currículo); - pendente;
+   c dados-patrimonio (descricao (ex. celular samsung), tipo (eletrônico), finalidade (utilização de whatsapp e para ligações)); - pendente;   
    x dados-entity; - à verificar;
     implementar relatório de usuários;
     implementar relatório de atividades;
@@ -47,6 +46,6 @@ Next components:
     implementar relatório de patrimônio;
     implementar possíveis outros; implementar um novo módulo contendo a listagem e possívelmente outros  conforme a parte visual das navs/tabs contidadas em aprox. browser edge > prjblazor; aplicar também a formatação div class row/colunm e buttons; prosseguir implementado novas telas/ módulos;
 
-// TODO: voltar para o projeto de (react) e avançar na parte de frontend;
+Voltar para o projeto de (react) e avançar na parte de frontend;
 
 -------------------------------------------------------------------

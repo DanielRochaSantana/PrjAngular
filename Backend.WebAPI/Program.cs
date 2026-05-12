@@ -1,3 +1,4 @@
+#region Usings
 using Backend.Application.Interfaces;
 using Backend.Application.Services;
 using Backend.Domain.Models.Entity;
@@ -7,6 +8,7 @@ using Backend.Infrastructure.Interfaces.CommandSide;
 using Backend.Infrastructure.Interfaces.Context;
 using Backend.Infrastructure.Interfaces.QuerySide;
 using Backend.Infrastructure.QuerySide;
+#endregion Usings
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Dependency Injection
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRepositorioGenerico<Usuario>, RepositorioGenerico<Usuario>>();
 builder.Services.AddScoped<IConsultaGenerica<Usuario>, ConsultaGenerica<Usuario>>();
@@ -34,7 +37,12 @@ builder.Services.AddScoped<ICompromissoService, CompromissoService>();
 builder.Services.AddScoped<IRepositorioGenerico<Compromisso>, RepositorioGenerico<Compromisso>>();
 builder.Services.AddScoped<IConsultaGenerica<Compromisso>, ConsultaGenerica<Compromisso>>();
 
+builder.Services.AddScoped<ICursoService, CursoService>();
+builder.Services.AddScoped<IRepositorioGenerico<Curso>, RepositorioGenerico<Curso>>();
+builder.Services.AddScoped<IConsultaGenerica<Curso>, ConsultaGenerica<Curso>>();
+
 builder.Services.AddScoped<IContext, Context>();
+#endregion  Dependency Injection
 
 builder.Services.AddCors(
                 opcoes => opcoes.AddDefaultPolicy(

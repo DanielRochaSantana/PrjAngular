@@ -1,3 +1,4 @@
+#region Usings
 using Backend.Application.Interfaces;
 using Backend.Domain.Models;
 using Backend.Domain.Models.Entity;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Constants = Backend.Infrastructure.Utils.Constants;
 using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory;
+#endregion Usings
 
 namespace Backend.WebAPI.Controllers
 {
@@ -12,30 +14,38 @@ namespace Backend.WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class AtuacaoController : ControllerBase
     {
-        protected readonly IAtuacaoService _atuacaoService;
-
+        #region Controller Fields
         /// <summary>
-        /// Construtor.
+        /// The _atuacaoService field.
+        /// </summary>
+        protected readonly IAtuacaoService _atuacaoService;
+        #endregion Controller Fields
+
+        #region Constructor
+        /// <summary>
+        /// Constructor.
         /// </summary>
         public AtuacaoController(IAtuacaoService atuacaoService)
         {
             _atuacaoService = atuacaoService;
         }
+        #endregion Constructor
 
+        #region Controller EndPoints
         /// <summary>
         /// Efetua a adição de um atuação.
         /// </summary>
-        /// <param name="itermediateAtuacaoModel">O parâmetro atuacaoModel.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="intermediateAtuacaoModel">The intermediateAtuacaoModel parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPost(Name = "AdicionarAtuacao")]
-        public ActionResult<HttpResponseMessage> AdicionarAtuacao([FromBody] IntermediateAtuacaoModel itermediateAtuacaoModel)
+        public ActionResult<HttpResponseMessage> AdicionarAtuacao([FromBody] IntermediateAtuacaoModel intermediateAtuacaoModel)
         {
             try
             {
-                if (itermediateAtuacaoModel == null || itermediateAtuacaoModel.IsEdit)
+                if (intermediateAtuacaoModel == null || intermediateAtuacaoModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Atuacao atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(itermediateAtuacaoModel);
+                Atuacao atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(intermediateAtuacaoModel);
 
                 _atuacaoService.Adicionar(atuacao, Constants.ID, Constants.ATUACAO);
 
@@ -50,17 +60,17 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a remoção de um atuação.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpDelete(Name = "ApagarAtuacao")]
-        public ActionResult<HttpResponseMessage> ApagarAtuacao(Guid Id)
+        public ActionResult<HttpResponseMessage> ApagarAtuacao(Guid id)
         {
             try
             {
-                if (Id == Guid.Empty)
+                if (id == Guid.Empty)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atuacaoService.Remover(Id, ObjectFactory.EntityEnum.Atuacao, Constants.ATUACAO, Constants.ID);
+                _atuacaoService.Remover(id, ObjectFactory.EntityEnum.Atuacao, Constants.ATUACAO, Constants.ID);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -73,27 +83,27 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a atualização de um atuação.
         /// </summary>
-        /// <param name="Id">O parâmetro IdAtuacao</param>
-        /// <param name="_atuacao">O parâmetro _atuacao</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <param name="atuacao">The atuacao parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPut(Name = "AtualizarAtuacao")]
-        public ActionResult<HttpResponseMessage> AtualizarAtuacao([FromQuery] string Id, [FromBody] IntermediateAtuacaoModel? _atuacao)
+        public ActionResult<HttpResponseMessage> AtualizarAtuacao([FromQuery] string id, [FromBody] IntermediateAtuacaoModel? atuacao)
         {
             try
             {
-                if (_atuacao == null ||
-                    !_atuacao.IsEdit ||
-                    string.IsNullOrEmpty(Id) ||
-                    string.IsNullOrWhiteSpace(Id) ||
-                    Id == Guid.Empty.ToString()
+                if (atuacao == null ||
+                    !atuacao.IsEdit ||
+                    string.IsNullOrEmpty(id) ||
+                    string.IsNullOrWhiteSpace(id) ||
+                    id == Guid.Empty.ToString()
                     )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atuacao.Id = Id;
+                atuacao.Id = id;
 
-                Atuacao atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(_atuacao);
+                Atuacao _atuacao = ObjectFactory.GetAtuacaoFromIntermediateAtuacaoModel(atuacao);
 
-                _atuacaoService.Atualizar(atuacao, Constants.ID, Constants.ATUACAO);
+                _atuacaoService.Atualizar(_atuacao, Constants.ID, Constants.ATUACAO);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -106,7 +116,7 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem as atuações.
         /// </summary>
-        /// <returns>ActionResult IList Atuacao.</returns>
+        /// <returns>ActionResult of IList of Atuacao.</returns>
         [HttpGet(Name = "ObterAtuacoes")]
         public ActionResult<IList<Atuacao>> ObterAtuacoes()
         {
@@ -124,14 +134,14 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem Atuação por Id.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult Atuacao.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of Atuacao.</returns>
         [HttpGet(Name = "ObterAtuacaoPorId")]
-        public ActionResult<Atuacao> ObterAtuacaoPorId(Guid Id)
+        public ActionResult<Atuacao> ObterAtuacaoPorId(Guid id)
         {
             try
             {
-                Atuacao? atuacao = _atuacaoService.EncontrarPorCodigo(Id,
+                Atuacao? atuacao = _atuacaoService.EncontrarPorCodigo(id,
                                                                       ObjectFactory.EntityEnum.Atuacao,
                                                                       Constants.ATUACAO,
                                                                       Constants.ID);
@@ -142,5 +152,6 @@ namespace Backend.WebAPI.Controllers
                 return BadRequest();
             }
         }
+        #endregion Controller EndPoints
     }
 }
