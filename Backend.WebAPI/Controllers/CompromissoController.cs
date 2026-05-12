@@ -1,10 +1,12 @@
+#region Usings
 using Backend.Application.Interfaces;
 using Backend.Domain.Models;
 using Backend.Domain.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Constants = Backend.Infrastructure.Utils.Constants;
-using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory;
+using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory; 
+#endregion Usings
 
 namespace Backend.WebAPI.Controllers
 {
@@ -12,30 +14,38 @@ namespace Backend.WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class CompromissoController : ControllerBase
     {
-        protected readonly ICompromissoService _compromissoService;
-
+        #region Controller Fields
         /// <summary>
-        /// Construtor.
+        /// The _compromissoService field.
+        /// </summary>
+        protected readonly ICompromissoService _compromissoService;
+        #endregion Controller Fields
+
+        #region Constructor
+        /// <summary>
+        /// Constructor.
         /// </summary>
         public CompromissoController(ICompromissoService compromissoService)
         {
             _compromissoService = compromissoService;
         }
+        #endregion Constructor
 
+        #region Controller EndPoints
         /// <summary>
         /// Efetua a adição de um compromisso.
         /// </summary>
-        /// <param name="itermediateCompromissoModel">O parâmetro compromissoModel.</param>
+        /// <param name="intermediateCompromissoModel">The intermediateCompromissoModel parameter.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
         [HttpPost(Name = "AdicionarCompromisso")]
-        public ActionResult<HttpResponseMessage> AdicionarCompromisso([FromBody] IntermediateCompromissoModel itermediateCompromissoModel)
+        public ActionResult<HttpResponseMessage> AdicionarCompromisso([FromBody] IntermediateCompromissoModel intermediateCompromissoModel)
         {
             try
             {
-                if (itermediateCompromissoModel == null || itermediateCompromissoModel.IsEdit)
+                if (intermediateCompromissoModel == null || intermediateCompromissoModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Compromisso compromisso = ObjectFactory.GetCompromissoFromIntermediateCompromissoModel(itermediateCompromissoModel);
+                Compromisso compromisso = ObjectFactory.GetCompromissoFromIntermediateCompromissoModel(intermediateCompromissoModel);
 
                 _compromissoService.Adicionar(compromisso, Constants.ID, Constants.COMPROMISSO);
 
@@ -50,17 +60,17 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a remoção de um compromisso.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
+        /// <param name="id">The id parameter.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
         [HttpDelete(Name = "ApagarCompromisso")]
-        public ActionResult<HttpResponseMessage> ApagarCompromisso(Guid Id)
+        public ActionResult<HttpResponseMessage> ApagarCompromisso(Guid id)
         {
             try
             {
-                if (Id == Guid.Empty)
+                if (id == Guid.Empty)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _compromissoService.Remover(Id, ObjectFactory.EntityEnum.Compromisso, Constants.COMPROMISSO, Constants.ID);
+                _compromissoService.Remover(id, ObjectFactory.EntityEnum.Compromisso, Constants.COMPROMISSO, Constants.ID);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -73,27 +83,27 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a atualização de um compromisso.
         /// </summary>
-        /// <param name="Id">O parâmetro IdCompromisso</param>
-        /// <param name="_compromisso">O parâmetro _compromisso</param>
+        /// <param name="id">The id parameter.</param>
+        /// <param name="compromisso">The compromisso parameter.</param>
         /// <returns>ActionResult HttpResponseMessage.</returns>
         [HttpPut(Name = "AtualizarCompromisso")]
-        public ActionResult<HttpResponseMessage> AtualizarCompromisso([FromQuery] string Id, [FromBody] IntermediateCompromissoModel? _compromisso)
+        public ActionResult<HttpResponseMessage> AtualizarCompromisso([FromQuery] string id, [FromBody] IntermediateCompromissoModel? compromisso)
         {
             try
             {
-                if (_compromisso == null ||
-                    !_compromisso.IsEdit ||
-                    string.IsNullOrEmpty(Id) ||
-                    string.IsNullOrWhiteSpace(Id) ||
-                    Id == Guid.Empty.ToString()
+                if (compromisso == null ||
+                    !compromisso.IsEdit ||
+                    string.IsNullOrEmpty(id) ||
+                    string.IsNullOrWhiteSpace(id) ||
+                    id == Guid.Empty.ToString()
                     )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _compromisso.Id = Id;
+                compromisso.Id = id;
 
-                Compromisso compromisso = ObjectFactory.GetCompromissoFromIntermediateCompromissoModel(_compromisso);
+                Compromisso _compromisso = ObjectFactory.GetCompromissoFromIntermediateCompromissoModel(compromisso);
 
-                _compromissoService.Atualizar(compromisso, Constants.ID, Constants.COMPROMISSO);
+                _compromissoService.Atualizar(_compromisso, Constants.ID, Constants.COMPROMISSO);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -124,14 +134,14 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem Compromisso por Id.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
+        /// <param name="id">The id parameter.</param>
         /// <returns>ActionResult Compromisso.</returns>
         [HttpGet(Name = "ObterCompromissoPorId")]
-        public ActionResult<Compromisso> ObterCompromissoPorId(Guid Id)
+        public ActionResult<Compromisso> ObterCompromissoPorId(Guid id)
         {
             try
             {
-                Compromisso? compromisso = _compromissoService.EncontrarPorCodigo(Id,
+                Compromisso? compromisso = _compromissoService.EncontrarPorCodigo(id,
                                                                       ObjectFactory.EntityEnum.Compromisso,
                                                                       Constants.COMPROMISSO,
                                                                       Constants.ID);
@@ -142,5 +152,6 @@ namespace Backend.WebAPI.Controllers
                 return BadRequest();
             }
         }
+        #endregion Controller EndPoints
     }
 }

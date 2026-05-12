@@ -1,10 +1,12 @@
+#region Usings
 using Backend.Application.Interfaces;
 using Backend.Domain.Models;
 using Backend.Domain.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Constants = Backend.Infrastructure.Utils.Constants;
-using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory;
+using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory; 
+#endregion Usings
 
 namespace Backend.WebAPI.Controllers
 {
@@ -12,30 +14,38 @@ namespace Backend.WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class DespesaController : ControllerBase
     {
-        protected readonly IDespesaService _despesaService;
-
+        #region Controller Fields
         /// <summary>
-        /// Construtor.
+        /// The _despesaService field.
+        /// </summary>
+        protected readonly IDespesaService _despesaService;
+        #endregion Controller Fields
+
+        #region Constructor
+        /// <summary>
+        /// Constructor.
         /// </summary>
         public DespesaController(IDespesaService despesaService)
         {
             _despesaService = despesaService;
         }
+        #endregion Constructor
 
+        #region Controller EndPoints
         /// <summary>
         /// Efetua a adição de um despesa.
         /// </summary>
-        /// <param name="itermediateDespesaModel">O parâmetro despesaModel.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="intermediateDespesaModel">The intermediateDespesaModel parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPost(Name = "AdicionarDespesa")]
-        public ActionResult<HttpResponseMessage> AdicionarDespesa([FromBody] IntermediateDespesaModel itermediateDespesaModel)
+        public ActionResult<HttpResponseMessage> AdicionarDespesa([FromBody] IntermediateDespesaModel intermediateDespesaModel)
         {
             try
             {
-                if (itermediateDespesaModel == null || itermediateDespesaModel.IsEdit)
+                if (intermediateDespesaModel == null || intermediateDespesaModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Despesa despesa = ObjectFactory.GetDespesaFromIntermediateDespesaModel(itermediateDespesaModel);
+                Despesa despesa = ObjectFactory.GetDespesaFromIntermediateDespesaModel(intermediateDespesaModel);
 
                 _despesaService.Adicionar(despesa, Constants.ID, Constants.DESPESA);
 
@@ -50,17 +60,17 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a remoção de um despesa.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpDelete(Name = "ApagarDespesa")]
-        public ActionResult<HttpResponseMessage> ApagarDespesa(Guid Id)
+        public ActionResult<HttpResponseMessage> ApagarDespesa(Guid id)
         {
             try
             {
-                if (Id == Guid.Empty)
+                if (id == Guid.Empty)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _despesaService.Remover(Id, ObjectFactory.EntityEnum.Despesa, Constants.DESPESA, Constants.ID);
+                _despesaService.Remover(id, ObjectFactory.EntityEnum.Despesa, Constants.DESPESA, Constants.ID);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -73,27 +83,27 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a atualização de um despesa.
         /// </summary>
-        /// <param name="Id">O parâmetro IdDespesa</param>
-        /// <param name="_despesa">O parâmetro _despesa</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <param name="despesa">The despesa parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPut(Name = "AtualizarDespesa")]
-        public ActionResult<HttpResponseMessage> AtualizarDespesa([FromQuery] string Id, [FromBody] IntermediateDespesaModel? _despesa)
+        public ActionResult<HttpResponseMessage> AtualizarDespesa([FromQuery] string id, [FromBody] IntermediateDespesaModel? despesa)
         {
             try
             {
-                if (_despesa == null ||
-                    !_despesa.IsEdit ||
-                    string.IsNullOrEmpty(Id) ||
-                    string.IsNullOrWhiteSpace(Id) ||
-                    Id == Guid.Empty.ToString()
+                if (despesa == null ||
+                    !despesa.IsEdit ||
+                    string.IsNullOrEmpty(id) ||
+                    string.IsNullOrWhiteSpace(id) ||
+                    id == Guid.Empty.ToString()
                     )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _despesa.Id = Id;
+                despesa.Id = id;
 
-                Despesa despesa = ObjectFactory.GetDespesaFromIntermediateDespesaModel(_despesa);
+                Despesa _despesa = ObjectFactory.GetDespesaFromIntermediateDespesaModel(despesa);
 
-                _despesaService.Atualizar(despesa, Constants.ID, Constants.DESPESA);
+                _despesaService.Atualizar(_despesa, Constants.ID, Constants.DESPESA);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -106,7 +116,7 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem os despesas.
         /// </summary>
-        /// <returns>ActionResult IList Despesa.</returns>
+        /// <returns>ActionResult of IList of Despesa.</returns>
         [HttpGet(Name = "ObterDespesas")]
         public ActionResult<IList<Despesa>> ObterDespesas()
         {
@@ -124,14 +134,14 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem Despesa por Id.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult Despesa.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of Despesa.</returns>
         [HttpGet(Name = "ObterDespesaPorId")]
-        public ActionResult<Despesa> ObterDespesaPorId(Guid Id)
+        public ActionResult<Despesa> ObterDespesaPorId(Guid id)
         {
             try
             {
-                Despesa? despesa = _despesaService.EncontrarPorCodigo(Id,
+                Despesa? despesa = _despesaService.EncontrarPorCodigo(id,
                                                                       ObjectFactory.EntityEnum.Despesa,
                                                                       Constants.DESPESA,
                                                                       Constants.ID);
@@ -141,6 +151,7 @@ namespace Backend.WebAPI.Controllers
             {
                 return BadRequest();
             }
-        }
+        } 
+        #endregion
     }
 }

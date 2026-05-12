@@ -1,10 +1,12 @@
+#region Usings
 using Backend.Application.Interfaces;
 using Backend.Domain.Models;
 using Backend.Domain.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Constants = Backend.Infrastructure.Utils.Constants;
-using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory;
+using ObjectFactory = Backend.Infrastructure.Factory.ObjectFactory; 
+#endregion Usings
 
 namespace Backend.WebAPI.Controllers
 {
@@ -12,30 +14,38 @@ namespace Backend.WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     public class AtividadeController : ControllerBase
     {
-        protected readonly IAtividadeService _atividadeService;
-
+        #region Controller Fields
         /// <summary>
-        /// Construtor.
+        /// The _atividadeService field.
+        /// </summary>
+        protected readonly IAtividadeService _atividadeService;
+        #endregion Controller Fields
+
+        #region Constructor
+        /// <summary>
+        /// Constructor.
         /// </summary>
         public AtividadeController(IAtividadeService atividadeService)
         {
             _atividadeService = atividadeService;
         }
+        #endregion Constructor
 
+        #region Controller EndPoints
         /// <summary>
         /// Efetua a adição de um atividade.
         /// </summary>
-        /// <param name="itermediateAtividadeModel">O parâmetro atividadeModel.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="intermediateAtividadeModel">The intermediateAtividadeModel parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPost(Name = "AdicionarAtividade")]
-        public ActionResult<HttpResponseMessage> AdicionarAtividade([FromBody] IntermediateAtividadeModel itermediateAtividadeModel)
+        public ActionResult<HttpResponseMessage> AdicionarAtividade([FromBody] IntermediateAtividadeModel intermediateAtividadeModel)
         {
             try
             {
-                if (itermediateAtividadeModel == null || itermediateAtividadeModel.IsEdit)
+                if (intermediateAtividadeModel == null || intermediateAtividadeModel.IsEdit)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                Atividade atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(itermediateAtividadeModel);
+                Atividade atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(intermediateAtividadeModel);
 
                 _atividadeService.Adicionar(atividade, Constants.ID, Constants.ATIVIDADE);
 
@@ -50,17 +60,17 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a remoção de um atividade.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpDelete(Name = "ApagarAtividade")]
-        public ActionResult<HttpResponseMessage> ApagarAtividade(Guid Id)
+        public ActionResult<HttpResponseMessage> ApagarAtividade(Guid id)
         {
             try
             {
-                if (Id == Guid.Empty)
+                if (id == Guid.Empty)
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atividadeService.Remover(Id, ObjectFactory.EntityEnum.Atividade, Constants.ATIVIDADE, Constants.ID);
+                _atividadeService.Remover(id, ObjectFactory.EntityEnum.Atividade, Constants.ATIVIDADE, Constants.ID);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -73,27 +83,27 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Efetua a atualização de um atividade.
         /// </summary>
-        /// <param name="Id">O parâmetro IdAtividade</param>
-        /// <param name="_atividade">O parâmetro _atividade</param>
-        /// <returns>ActionResult HttpResponseMessage.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <param name="atividade">The atividade parameter.</param>
+        /// <returns>ActionResult of HttpResponseMessage.</returns>
         [HttpPut(Name = "AtualizarAtividade")]
-        public ActionResult<HttpResponseMessage> AtualizarAtividade([FromQuery] string Id, [FromBody] IntermediateAtividadeModel? _atividade)
+        public ActionResult<HttpResponseMessage> AtualizarAtividade([FromQuery] string id, [FromBody] IntermediateAtividadeModel? atividade)
         {
             try
             {
-                if (_atividade == null ||
-                    !_atividade.IsEdit ||
-                    string.IsNullOrEmpty(Id) ||
-                    string.IsNullOrWhiteSpace(Id) ||
-                    Id == Guid.Empty.ToString()
+                if (atividade == null ||
+                    !atividade.IsEdit ||
+                    string.IsNullOrEmpty(id) ||
+                    string.IsNullOrWhiteSpace(id) ||
+                    id == Guid.Empty.ToString()
                     )
                     return BadRequest(new HttpResponseMessage(HttpStatusCode.InternalServerError));
 
-                _atividade.Id = Id;
+                atividade.Id = id;
 
-                Atividade atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(_atividade);
+                Atividade _atividade = ObjectFactory.GetAtividadeFromIntermediateAtividadeModel(atividade);
 
-                _atividadeService.Atualizar(atividade, Constants.ID, Constants.ATIVIDADE);
+                _atividadeService.Atualizar(_atividade, Constants.ID, Constants.ATIVIDADE);
 
                 return Ok(new HttpResponseMessage(HttpStatusCode.OK));
             }
@@ -106,7 +116,7 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem os atividades.
         /// </summary>
-        /// <returns>ActionResult IList Atividade.</returns>
+        /// <returns>ActionResult of IList of Atividade.</returns>
         [HttpGet(Name = "ObterAtividades")]
         public ActionResult<IList<Atividade>> ObterAtividades()
         {
@@ -124,14 +134,14 @@ namespace Backend.WebAPI.Controllers
         /// <summary>
         /// Obtem Atividade por Id.
         /// </summary>
-        /// <param name="Id">O parâmetro Id.</param>
-        /// <returns>ActionResult Atividade.</returns>
+        /// <param name="id">The id parameter.</param>
+        /// <returns>ActionResult of Atividade.</returns>
         [HttpGet(Name = "ObterAtividadePorId")]
-        public ActionResult<Atividade> ObterAtividadePorId(Guid Id)
+        public ActionResult<Atividade> ObterAtividadePorId(Guid id)
         {
             try
             {
-                Atividade? atividade = _atividadeService.EncontrarPorCodigo(Id,
+                Atividade? atividade = _atividadeService.EncontrarPorCodigo(id,
                                                                       ObjectFactory.EntityEnum.Atividade,
                                                                       Constants.ATIVIDADE,
                                                                       Constants.ID);
@@ -141,6 +151,7 @@ namespace Backend.WebAPI.Controllers
             {
                 return BadRequest();
             }
-        }
+        } 
+        #endregion Controller EndPoints
     }
 }
